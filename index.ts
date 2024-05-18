@@ -15,7 +15,7 @@ const s = Bun.serve({
       });
     }
     try {
-      const response = await server(url.pathname);
+      const response = await server(url.pathname, url.searchParams);
 
       if (url.pathname.startsWith("/api") && typeof response === "object") {
         return Response.json(response);

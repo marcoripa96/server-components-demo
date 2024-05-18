@@ -1,6 +1,6 @@
 import { html, readFile } from "./utils";
 
-export async function server(pathname: string) {
+export async function server(pathname: string, searchParams: URLSearchParams) {
   if (pathname === "/api/movies") {
     const data = await readFile("./movies.ts");
     return data.movies;
@@ -22,6 +22,10 @@ export async function server(pathname: string) {
         </head>
         <body>
           <h1>Bacheca film</h1>
+          <div id="movies"></div>
+          <button id="load-more-btn" onclick="loadMoreMovies()">
+            Load more
+          </button>
         </body>
       </html>
     `;

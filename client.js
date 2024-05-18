@@ -10,16 +10,63 @@ const movies = [
   "Inception",
   "Interstellar",
   "The Matrix",
+  "Se7en",
+  "The Silence of the Lambs",
+  "The Usual Suspects",
+  "Psycho",
+  "One Flew Over the Cuckoo's Nest",
+  "Goodfellas",
+  "The Godfather: Part II",
+  "The Good, the Bad and the Ugly",
+  "The Lord of the Rings: The Fellowship of the Ring",
+  "Fight Club",
+  "Star Wars: Episode V - The Empire Strikes Back",
+  "It's a Wonderful Life",
+  "Casablanca",
+  "City Lights",
+  "North by Northwest",
+  "Raiders of the Lost Ark",
 ];
 
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("Client-side script loaded");
-  const p = document.createElement("ul");
+let page = 0;
+let moviesPerPage = 5;
 
-  movies.forEach((movie) => {
-    const li = document.createElement("li");
-    li.textContent = movie;
-    p.appendChild(li);
+document.addEventListener("DOMContentLoaded", async () => {
+  const moviesPage = movies.slice(
+    page * moviesPerPage,
+    page * moviesPerPage + moviesPerPage
+  );
+
+  const moviesList = document.createElement("ul");
+  moviesList.id = "movies-list";
+
+  moviesPage.forEach((movie) => {
+    const movieItem = document.createElement("li");
+    movieItem.textContent = movie;
+    moviesList.appendChild(movieItem);
   });
-  document.body.appendChild(p);
+
+  const moviesListContainer = document.getElementById("movies");
+  moviesListContainer.append(moviesList);
 });
+
+function loadMoreMovies() {
+  page += 1;
+
+  const moviesPage = movies.slice(
+    page * moviesPerPage,
+    page * moviesPerPage + moviesPerPage
+  );
+
+  const moviesList = document.getElementById("movies-list");
+
+  moviesPage.forEach((movie) => {
+    const movieItem = document.createElement("li");
+    movieItem.textContent = movie;
+    moviesList.appendChild(movieItem);
+  });
+
+  if (page === Math.ceil(movies.length / moviesPerPage) - 1) {
+    document.getElementById("load-more-btn").remove();
+  }
+}
