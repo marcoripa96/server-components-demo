@@ -47,10 +47,14 @@
    - search params
    - on url change resend down the whole html
 
-9. Composition
+9. Spot another issue
 
-   - Server component
-   - Client component
-     - use client
+   - the initial seerver logic is blocking the client from being rendered
 
-10. Next.js
+10. Composition
+
+    - Server component
+    - Client component
+      - use client
+
+11. Next.js
