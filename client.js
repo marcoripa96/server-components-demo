@@ -28,19 +28,14 @@ const movies = [
   "Raiders of the Lost Ark",
 ];
 
-let page = 0;
-let moviesPerPage = 5;
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const moviesPage = movies.slice(
-    page * moviesPerPage,
-    page * moviesPerPage + moviesPerPage
-  );
+document.addEventListener("DOMContentLoaded", () => {
+  // grab the first 5 movies
+  const firstFiveMovies = movies.slice(0, 5);
 
   const moviesList = document.createElement("ul");
   moviesList.id = "movies-list";
 
-  moviesPage.forEach((movie) => {
+  firstFiveMovies.forEach((movie) => {
     const movieItem = document.createElement("li");
     movieItem.textContent = movie;
     moviesList.appendChild(movieItem);
@@ -48,25 +43,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   const moviesListContainer = document.getElementById("movies");
   moviesListContainer.append(moviesList);
-});
 
-function loadMoreMovies() {
-  page += 1;
+  // attach event listener to search input
+  const searchInput = document.getElementById("search-input");
 
-  const moviesPage = movies.slice(
-    page * moviesPerPage,
-    page * moviesPerPage + moviesPerPage
-  );
+  searchInput.addEventListener("input", function (event) {
+    moviesList.innerHTML = "";
+    const searchTerm = event.target.value;
 
-  const moviesList = document.getElementById("movies-list");
+    const regex = new RegExp(searchTerm, "i");
 
-  moviesPage.forEach((movie) => {
-    const movieItem = document.createElement("li");
-    movieItem.textContent = movie;
-    moviesList.appendChild(movieItem);
+    const filteredMovies = movies
+      .filter((movie) => regex.test(movie))
+      .slice(0, 5);
+
+    filteredMovies.forEach((movie) => {
+      const movieItem = document.createElement("li");
+      movieItem.textContent = movie;
+      moviesList.appendChild(movieItem);
+    });
   });
-
-  if (page === Math.ceil(movies.length / moviesPerPage) - 1) {
-    document.getElementById("load-more-btn").remove();
-  }
-}
+});

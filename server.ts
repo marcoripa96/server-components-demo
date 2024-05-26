@@ -22,10 +22,15 @@ export async function server(pathname: string, searchParams: URLSearchParams) {
         </head>
         <body>
           <h1>Bacheca film</h1>
-          <div id="movies"></div>
-          <button id="load-more-btn" onclick="loadMoreMovies()">
-            Load more
-          </button>
+          <div class="content">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Cerca un film..."
+              onchange="searchMovies"
+            />
+            <div id="movies"></div>
+          </div>
         </body>
       </html>
     `;
